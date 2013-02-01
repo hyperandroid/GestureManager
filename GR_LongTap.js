@@ -7,7 +7,7 @@
 
 (function() {
 
-    var TIME_TO_FIRE_CALLBACK= 500;
+    var TIME_TO_FIRE_CALLBACK= 800;
 
     GM.GR_LongTap= function(fingers, callback) {
         GM.GR_LongTap.superclass.constructor.call(this, fingers, callback);
@@ -22,8 +22,6 @@
 
         touchesBegan : function(e) {
             this.__super(e);
-
-            var me= this;
 
             if ( this.getStatus()===GM.GestureRecognizer.STATUS.ST_BEGAN ) {
                 this.__cancelTimer();

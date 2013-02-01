@@ -19,12 +19,8 @@
     GM.GR_Tap= function(fingers, callback) {
         GM.GR_Tap.superclass.constructor.call(this, callback);
 
-        if ( fingers ) {
-            this.fingers= fingers|0;
-        }
-
+        fingers= fingers|0;
         this.setCaptureTouchIdLen(fingers);
-
         this.setId("Tap "+fingers);
 
         return this;

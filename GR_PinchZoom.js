@@ -7,11 +7,12 @@
 
 (function() {
 
+    var DISTANCE_THRESHOLD_TO_BE_PINCHZOOM= 20;
+    var TIME_TO_START_PINCH_ZOOM= 700;
+
     GM.GR_PinchZoom= function(callback) {
         GM.GR_PinchZoom.superclass.constructor.call(this, callback);
-
-        this.fingers= 2;
-        this.setCaptureTouchIdLen(this.fingers);
+        this.setCaptureTouchIdLen(2);
         this.setId("Pinch and Zoom");
 
         return this;
@@ -24,6 +25,8 @@
 
         __scale : 1,
         __rotation : 0,
+
+        started : false,
 
         touchesBegan : function(e) {
             this.__super(e);
@@ -41,13 +44,20 @@
             }
         },
 
+        __isValidDistance : function( touchInfo ) {
+            var y= touchInfo.endY - touchInfo.y;
+            var x= touchInfo.endX - touchInfo.x;
+
+            return Math.sqrt(x*x + y*y) > DISTANCE_THRESHOLD_TO_BE_PINCHZOOM;
+        },
+
         touchesMoved : function(e) {
+
+            var i;
 
             if ( !this.acceptsInput() ) {
                 return;
             }
-
-            this.__super(e);
 
             if ( this.getCurrentTouchIdCount()!==this.fingers) {
                 this.failed();
@@ -60,8 +70,26 @@
                 var touchInfo= this.getTouchInfoById(id);
                 if (touchInfo) {
                     touchInfo.setEndPosition(touch.pageX, touch.pageY, 0);
+
                 }
             }
+
+            if (!this.started) {
+                if ( this.getGestureElapsedTime() > TIME_TO_START_PINCH_ZOOM ) {
+                    this.failed();
+                    return;
+                }
+
+                for( i=0; i<this.touchesInfo.length; i++ ) {
+                    if ( !this.__isValidDistance(this.touchesInfo[i]) ) {
+                        return;
+                    }
+                }
+                this.started= true;
+            }
+
+            this.__super(e);
+
 
             var e0= this.touchesInfo[0];
             var e1= this.touchesInfo[1];
@@ -111,6 +139,7 @@
 
         reset : function() {
             this.__super();
+            this.started= false;
         }
 
     };

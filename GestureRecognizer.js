@@ -42,17 +42,17 @@
 
         this.getId= function() {
             return this.id;
-        }
+        };
 
         this.setEndPosition= function( x,y,z ) {
             this.endX= x;
             this.endY= y;
             this.endZ= z;
-        }
+        };
 
         this.dump= function() {
             console.log("   id:"+this.id);
-        }
+        };
 
         return this;
     }
@@ -106,6 +106,7 @@
         },
 
         setCaptureTouchIdLen : function(n) {
+            this.fingers= n;
             this.touchesInfo= [];
             for( var i=0; i<n; i++ ) {
                 this.touchesInfo.push( new GestureTouchInfo() );
