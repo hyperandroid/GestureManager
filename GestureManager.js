@@ -8,76 +8,96 @@
 
 (function() {
 
-    var gestureRecognizerList= [];
-
-    window.addEventListener("touchstart",  __touchStartHandler, false);
-    window.addEventListener("touchmove",   __touchMoveHandler, false);
-    window.addEventListener("touchend",    __touchEndHandler,  false);
-    window.addEventListener("touchcancel", __touchCancelHandler, false);
-
-    function __touchStartHandler(e) {
-        e.preventDefault();
-
-        for( var i=0; i<gestureRecognizerList.length; i+=1 ) {
-            if ( gestureRecognizerList[i].acceptsInput() ) {
-                gestureRecognizerList[i].touchesBegan(e);
-            }
-        }
-    };
-
-    function __touchMoveHandler(e) {
-        e.preventDefault();
-
-        for( var i=0; i<gestureRecognizerList.length; i+=1 ) {
-            if ( gestureRecognizerList[i].acceptsInput() ) {
-                gestureRecognizerList[i].touchesMoved(e);
-            }
-        }
-    };
-
-    function __touchEndHandler(e) {
-
-        e.preventDefault();
-
-        for( var i=0; i<gestureRecognizerList.length; i+=1 ) {
-            if ( gestureRecognizerList[i].acceptsInput() ) {
-                gestureRecognizerList[i].touchesEnded(e);
-            }
-        }
-
-        __shouldReset(e);
-    };
-
-    function __touchCancelHandler(e) {
-
-        e.preventDefault();
-
-        for( var i=0; i<gestureRecognizerList.length; i+=1 ) {
-            if ( gestureRecognizerList[i].acceptsInput() ) {
-                gestureRecognizerList[i].touchesCanceled(e);
-            }
-        }
-
-        __shouldReset(e);
-    };
-
-    function __shouldReset(e) {
-        if (e.touches.length===0) {
-            __resetGestureRecognizers();
-        }
-
-    };
-
-    function __addGestureRecognizer( gr ) {
-        gestureRecognizerList.push( gr );
+    GM.GestureManager= function() {
+        this.gestureRecognizerList= [];
         return this;
     };
 
-    function __resetGestureRecognizers() {
-        for( var i=0; i<gestureRecognizerList.length; i+=1 ) {
-            gestureRecognizerList[i].reset();
+    GM.GestureManager.prototype= {
+        target : null,
+        gestureRecognizerList : null,
+
+        setTarget : function( target ) {
+            if ( this.target ) {
+                this.target.removeEventListener("touchstart");
+                this.target.removeEventListener("touchmove");
+                this.target.removeEventListener("touchend");
+                this.target.removeEventListener("touchcancel");
+            }
+
+            this.target= target;
+
+            target.addEventListener("touchstart",  this.__touchStartHandler.bind(this), false);
+            target.addEventListener("touchmove",   this.__touchMoveHandler.bind(this), false);
+            target.addEventListener("touchend",    this.__touchEndHandler.bind(this),  false);
+            target.addEventListener("touchcancel", this.__touchCancelHandler.bind(this), false);
+
+            return this;
+        },
+
+        __touchStartHandler : function(e) {
+            e.preventDefault();
+
+            for( var i=0; i<this.gestureRecognizerList.length; i+=1 ) {
+                if ( this.gestureRecognizerList[i].acceptsInput() ) {
+                    this.gestureRecognizerList[i].touchesBegan(e);
+                }
+            }
+        },
+
+        __touchMoveHandler : function(e) {
+            e.preventDefault();
+
+            for( var i=0; i<this.gestureRecognizerList.length; i+=1 ) {
+                if ( this.gestureRecognizerList[i].acceptsInput() ) {
+                    this.gestureRecognizerList[i].touchesMoved(e);
+                }
+            }
+        },
+
+        __touchEndHandler : function(e) {
+
+            e.preventDefault();
+
+            for( var i=0; i<this.gestureRecognizerList.length; i+=1 ) {
+                if ( this.gestureRecognizerList[i].acceptsInput() ) {
+                    this.gestureRecognizerList[i].touchesEnded(e);
+                }
+            }
+
+            this.__shouldReset(e);
+        },
+
+        __touchCancelHandler : function(e) {
+
+            e.preventDefault();
+
+            for( var i=0; i<this.gestureRecognizerList.length; i+=1 ) {
+                if ( this.gestureRecognizerList[i].acceptsInput() ) {
+                    this.gestureRecognizerList[i].touchesCanceled(e);
+                }
+            }
+
+            this.__shouldReset(e);
+        },
+
+        __shouldReset : function(e) {
+            if (e.touches.length===0) {
+                this.__resetGestureRecognizers();
+            }
+        },
+
+        addGestureRecognizer : function( gr ) {
+            this.gestureRecognizerList.push( gr );
+            return this;
+        },
+
+        __resetGestureRecognizers : function() {
+            for( var i=0; i<this.gestureRecognizerList.length; i+=1 ) {
+                this.gestureRecognizerList[i].reset();
+            }
         }
-    }
+    };
 
 
     GM.extend = function (subc, superc) {
@@ -127,14 +147,8 @@
                        };
                    })(subc.prototype[method], superc.prototype[method]);
                }
-
-
            }
        }
    };
-
-    GM.GestureManager= {
-        addGestureRecognizer : __addGestureRecognizer
-    };
 
 })();

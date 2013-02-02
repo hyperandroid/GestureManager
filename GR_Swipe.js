@@ -79,7 +79,7 @@
 
                 this.__super(e);
                 if ( this.callback ) {
-                    this.callback(swipe_dir);
+                    this.callback(this.fingers, swipe_dir);
                 }
             }
         },

@@ -13,62 +13,53 @@
 
     <script>
 
-        GM.GestureManager.addGestureRecognizer(new GM.GR_Tap(2, function(fingers) {
-            console.log(fingers);
-        }));
-        GM.GestureManager.addGestureRecognizer(new GM.GR_Tap(3, function(fingers) {
-            console.log(fingers);
-        }));
-        GM.GestureManager.addGestureRecognizer(new GM.GR_Tap(4, function(fingers) {
-            console.log(fingers);
-        }));
-        GM.GestureManager.addGestureRecognizer(new GM.GR_Tap(5, function(fingers) {
-            console.log(fingers);
-        }));
-        GM.GestureManager.addGestureRecognizer(new GM.GR_Tap(1, function(fingers) {
-            console.log(fingers);
-        }));
-        GM.GestureManager.addGestureRecognizer(new GM.GR_LongTap(2, function(fingers) {
-            console.log("long tap "+fingers);
-        }));
-        GM.GestureManager.addGestureRecognizer(new GM.GR_LongTap(3, function(fingers) {
-            console.log("long tap "+fingers);
-        }));
-        GM.GestureManager.addGestureRecognizer(new GM.GR_LongTap(4, function(fingers) {
-            console.log("long tap "+fingers);
-        }));
-        GM.GestureManager.addGestureRecognizer(new GM.GR_LongTap(5, function(fingers) {
-            console.log("long tap "+fingers);
-        }));
-        GM.GestureManager.addGestureRecognizer(new GM.GR_LongTap(1, function(fingers) {
-            console.log("long tap "+fingers);
-        }));
-        GM.GestureManager.addGestureRecognizer(new GM.GR_Swipe(1, function(direction) {
-            console.log("swipe 1"+direction);
-        }));
-        GM.GestureManager.addGestureRecognizer(new GM.GR_Swipe(2, function(direction) {
-            console.log("swipe 2"+direction);
-        }));
-        GM.GestureManager.addGestureRecognizer(new GM.GR_Swipe(3, function(direction) {
-            console.log("swipe 3"+direction);
-        }));
-        GM.GestureManager.addGestureRecognizer(new GM.GR_Swipe(4, function(direction) {
-            console.log("swipe 4"+direction);
-        }));
-        GM.GestureManager.addGestureRecognizer(new GM.GR_Swipe(5, function(direction) {
-            console.log("swipe 5"+direction);
-        }));
-        GM.GestureManager.addGestureRecognizer(new GM.GR_PinchZoom( function(data) {
-            console.log("Pinch zoom "+JSON.stringify(data));
-        }));
-        GM.GestureManager.addGestureRecognizer(new GM.GR_DoubleTap( function() {
-            console.log("double tap");
-        }));
+        var $= function(e) {
+            return document.getElementById(e);
+        }
+
+        var gm= new GM.GestureManager().setTarget(window);
+
+        function fnTap(fingers) {
+            $('result').innerText= fingers;
+        }
+        function fnDTap(fingers) {
+            $('result').innerText= "DoubleTap";
+        }
+        function fnLongTap(fingers) {
+            $('result').innerText= "LongTap "+fingers;
+        }
+        function fnSwipe(fingers, direction) {
+            $('result').innerText= "Swipe "+fingers+" "+direction;
+        }
+        function fnPZ(data) {
+            $('result').innerText= "Pinch zoom "+JSON.stringify(data);
+        }
+
+        gm.addGestureRecognizer(new GM.GR_Tap(2, fnTap) );
+        gm.addGestureRecognizer(new GM.GR_Tap(3, fnTap) );
+        gm.addGestureRecognizer(new GM.GR_Tap(4, fnTap) );
+        gm.addGestureRecognizer(new GM.GR_Tap(5, fnTap) );
+        gm.addGestureRecognizer(new GM.GR_Tap(1, fnTap) );
+
+        gm.addGestureRecognizer(new GM.GR_LongTap(2, fnLongTap));
+        gm.addGestureRecognizer(new GM.GR_LongTap(3, fnLongTap));
+        gm.addGestureRecognizer(new GM.GR_LongTap(4, fnLongTap));
+        gm.addGestureRecognizer(new GM.GR_LongTap(5, fnLongTap));
+        gm.addGestureRecognizer(new GM.GR_LongTap(1, fnLongTap));
+
+        gm.addGestureRecognizer(new GM.GR_Swipe(1, fnSwipe));
+        gm.addGestureRecognizer(new GM.GR_Swipe(2, fnSwipe));
+        gm.addGestureRecognizer(new GM.GR_Swipe(3, fnSwipe));
+        gm.addGestureRecognizer(new GM.GR_Swipe(4, fnSwipe));
+        gm.addGestureRecognizer(new GM.GR_Swipe(5, fnSwipe));
+
+        gm.addGestureRecognizer(new GM.GR_PinchZoom( fnPZ ));
+        gm.addGestureRecognizer(new GM.GR_DoubleTap( fnDTap ));
     </script>
 </head>
 <body>
 
-
+<p id="result">No Gesture</p>
 
 </body>
 </html>

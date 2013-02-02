@@ -7,7 +7,7 @@
 
 (function() {
 
-    var DOUBLE_TAP_MAX_TIME= 150;
+    var DOUBLE_TAP_MAX_TIME= 200;
     var TIME_TO_TAP_FROM_START_TO_END= 100;
 
     GM.GR_DoubleTap= function(callback) {
