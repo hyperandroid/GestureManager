@@ -10,6 +10,9 @@ body {
 h1 {
     text-align : center;
 }
+h2 {
+    text-align : center;
+}
 
 section {
         text-align: center;
@@ -28,8 +31,14 @@ section {
 
 }
 
+a {
+    text-decoration: none;
+    color : #fff;
+    font-weight : bold;
+}
+
 #description {
-    background-color : #633;
+
     padding : 20px;
     display : block;
 }
@@ -60,9 +69,7 @@ section {
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 
     margin-top : 30px;
-    height : 400px;
 
-    background-color : #000;
 }
 
 #result {
@@ -70,5 +77,6 @@ section {
     text-align : center;
 
     background-color: #950;
-    color : #fa4
+    color : #fa4;
+    font-size : 20px;
 }

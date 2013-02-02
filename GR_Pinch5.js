@@ -7,7 +7,7 @@
 
 (function() {
 
-    var MIN_CONTOUR_RATIO_TO_PINCH5= .96;
+    var MIN_CONTOUR_RATIO_TO_PINCH5= .94;
 
     GM.GR_Pinch5= function(callback) {
         GM.GR_Pinch5.superclass.constructor.call(this, callback);
@@ -84,9 +84,22 @@
         },
 
         touchesEnded : function(e) {
-            if ( !this.allCapturedTouchIdsReleased() ) {
+
+            if (!this.started) {
                 this.failed();
-            } else {
+                return;
+            }
+
+            if ( this.getCurrentTouchIdCount()!==this.fingers) {
+                this.failed();
+                return;
+            }
+
+            for( var i=0; i<e.changedTouches.length; i+=1 ) {
+                this.clearTouchId(e.changedTouches[i].identifier);
+            }
+
+            if ( this.allCapturedTouchIdsReleased() ) {
                 this.__super(e);
                 if ( this.callback ) {
                     this.callback( 0 );

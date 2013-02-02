@@ -27,7 +27,18 @@
     </p>
 </section>
 
+
+<section id="dresult">
+    <span id="result">
+        Make some gestures on the page and I'll show what i guess !!!
+    </span>
+</section>
+
+
 <section id="description">
+    <h2>
+        Recognized gestures
+    </h2>
     <div class="row">
         <div class="cell">
             <img src="res/Single_Tap.png"><br>
@@ -61,13 +72,6 @@
 
 </section>
 
-
-<section id="dresult">
-    <span id="result">
-        Make some gestures here!!!
-    </span>
-</section>
-
 <section>
     <span>Gesture icons courtesy of <a href="http://MobileTuxedo.com">MobileTuxedo.com</a></span>
 </section>
@@ -78,7 +82,7 @@
         return document.getElementById(e);
     }
 
-    var gm= new GM.GestureManager().setTarget($('dresult'));
+    var gm= new GM.GestureManager().setTarget(window);
 
     function fnTap(fingers) {
         $('result').innerText= fingers;
