@@ -10,7 +10,7 @@
 
     var ANGLE= Math.PI/12;
     var DISTANCE_THRESHOLD_TO_BE_SWIPE= 100;    // pixels to consider swipe.
-    var TIME_TO_CONSIDER_VALID_SWIPE= 200;
+    var TIME_TO_CONSIDER_VALID_SWIPE= 300;
 
     GM.GR_Swipe= function(fingers, callback) {
         GM.GR_Swipe.superclass.constructor.call(this, callback);
