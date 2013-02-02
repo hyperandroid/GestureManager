@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title></title>
+    <title>Gesture Manager</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="css/gm.css">
     <script src="Namespace.js"></script>
     <script src="GestureManager.js"></script>
     <script src="GestureRecognizer.js"></script>
@@ -12,60 +14,113 @@
     <script src="GR_PinchZoom.js"></script>
     <script src="GR_Pinch5.js"></script>
 
-    <script>
 
-        var $= function(e) {
-            return document.getElementById(e);
-        }
-
-        var gm= new GM.GestureManager().setTarget(window);
-
-        function fnTap(fingers) {
-            $('result').innerText= fingers;
-        }
-        function fnDTap(fingers) {
-            $('result').innerText= "DoubleTap";
-        }
-        function fnLongTap(fingers) {
-            $('result').innerText= "LongTap "+fingers;
-        }
-        function fnSwipe(fingers, direction) {
-            $('result').innerText= "Swipe "+fingers+" "+direction;
-        }
-        function fnPZ(data) {
-            $('result').innerText= "Pinch zoom "+JSON.stringify(data);
-        }
-        function fnPinch5(progress) {
-            $('result').innerText= "Pinch 5 "+progress;
-        }
-
-        gm.addGestureRecognizer(new GM.GR_Tap(2, fnTap) );
-        gm.addGestureRecognizer(new GM.GR_Tap(3, fnTap) );
-        gm.addGestureRecognizer(new GM.GR_Tap(4, fnTap) );
-        gm.addGestureRecognizer(new GM.GR_Tap(5, fnTap) );
-        gm.addGestureRecognizer(new GM.GR_Tap(1, fnTap) );
-
-        gm.addGestureRecognizer(new GM.GR_LongTap(2, fnLongTap));
-        gm.addGestureRecognizer(new GM.GR_LongTap(3, fnLongTap));
-        gm.addGestureRecognizer(new GM.GR_LongTap(4, fnLongTap));
-        gm.addGestureRecognizer(new GM.GR_LongTap(5, fnLongTap));
-        gm.addGestureRecognizer(new GM.GR_LongTap(1, fnLongTap));
-
-        gm.addGestureRecognizer(new GM.GR_Swipe(1, fnSwipe));
-        gm.addGestureRecognizer(new GM.GR_Swipe(2, fnSwipe));
-        gm.addGestureRecognizer(new GM.GR_Swipe(3, fnSwipe));
-        gm.addGestureRecognizer(new GM.GR_Swipe(4, fnSwipe));
-        gm.addGestureRecognizer(new GM.GR_Swipe(5, fnSwipe));
-
-        gm.addGestureRecognizer(new GM.GR_PinchZoom( fnPZ ));
-        gm.addGestureRecognizer(new GM.GR_DoubleTap( fnDTap ));
-
-        gm.addGestureRecognizer(new GM.GR_Pinch5( fnPinch5 ));
-    </script>
 </head>
 <body>
+<section>
+    <h1>
+        Gesture Manager
+    </h1>
+    <p>
+        Gesture manager is a general purpose gesture recognizer,  written in the most extensible way.
+        Offers out of the box recognition for multi touch gestures like:
+    </p>
+</section>
 
-<p id="result">No Gesture</p>
+<section id="description">
+    <div class="row">
+        <div class="cell">
+            <img src="res/Single_Tap.png"><br>
+            <span class="description">Tap. Unlimited amount of touch points.</span>
+        </div>
+        <div class="cell">
+            <img src="res/Hold_Timer.png"><br>
+            <span class="description">LongTap. Unlimited amount of touch points.</span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="cell">
+            <img src="res/Swipe_Left.png"><img src="res/Swipe_Up.png"><img src="res/Swipe_Right.png"><img src="res/Swipe_Down.png">
+            <br><span class="description">Swipe. Unlimited amount of touch points.</span>
+        </div>
+        <div class="cell">
+            <img src="res/Double_Tap.png"><br>
+            <span class="description">Double Tap. One touch point.</span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="cell">
+            <img src="res/Pinch.png"><img src="res/Spread.png">
+            <br><span class="description">Pinch/Zoom/Move. Two touch point.</span>
+        </div>
+        <div class="cell">
+            <img src="res/5x_Pinch.png"><br>
+            <span class="description">Pinch 5. Five fingers pinch (iOS close app gesture).</span>
+        </div>
+    </div>
 
+</section>
+
+
+<section id="dresult">
+    <span id="result">
+        Make some gestures here!!!
+    </span>
+</section>
+
+<section>
+    <span>Gesture icons courtesy of <a href="http://MobileTuxedo.com">MobileTuxedo.com</a></span>
+</section>
+
+<script>
+
+    var $= function(e) {
+        return document.getElementById(e);
+    }
+
+    var gm= new GM.GestureManager().setTarget($('dresult'));
+
+    function fnTap(fingers) {
+        $('result').innerText= fingers;
+    }
+    function fnDTap(fingers) {
+        $('result').innerText= "DoubleTap";
+    }
+    function fnLongTap(fingers) {
+        $('result').innerText= "LongTap "+fingers;
+    }
+    function fnSwipe(fingers, direction) {
+        $('result').innerText= "Swipe "+fingers+" "+direction;
+    }
+    function fnPZ(data) {
+        $('result').innerText= "Pinch zoom "+JSON.stringify(data);
+    }
+    function fnPinch5(progress) {
+        $('result').innerText= "Pinch 5 "+progress;
+    }
+
+    gm.addGestureRecognizer(new GM.GR_Tap(2, fnTap) );
+    gm.addGestureRecognizer(new GM.GR_Tap(3, fnTap) );
+    gm.addGestureRecognizer(new GM.GR_Tap(4, fnTap) );
+    gm.addGestureRecognizer(new GM.GR_Tap(5, fnTap) );
+    gm.addGestureRecognizer(new GM.GR_Tap(1, fnTap) );
+
+    gm.addGestureRecognizer(new GM.GR_LongTap(2, fnLongTap));
+    gm.addGestureRecognizer(new GM.GR_LongTap(3, fnLongTap));
+    gm.addGestureRecognizer(new GM.GR_LongTap(4, fnLongTap));
+    gm.addGestureRecognizer(new GM.GR_LongTap(5, fnLongTap));
+    gm.addGestureRecognizer(new GM.GR_LongTap(1, fnLongTap));
+
+    gm.addGestureRecognizer(new GM.GR_Swipe(1, fnSwipe));
+    gm.addGestureRecognizer(new GM.GR_Swipe(2, fnSwipe));
+    gm.addGestureRecognizer(new GM.GR_Swipe(3, fnSwipe));
+    gm.addGestureRecognizer(new GM.GR_Swipe(4, fnSwipe));
+    gm.addGestureRecognizer(new GM.GR_Swipe(5, fnSwipe));
+
+    gm.addGestureRecognizer(new GM.GR_PinchZoom( fnPZ ));
+    gm.addGestureRecognizer(new GM.GR_DoubleTap( fnDTap ));
+
+    gm.addGestureRecognizer(new GM.GR_Pinch5( fnPinch5 ));
+</script>
 </body>
 </html>
