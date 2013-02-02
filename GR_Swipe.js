@@ -104,11 +104,6 @@
             }
 
             return GM.GR_Swipe.DIRECTION.CANT_TELL;
-        },
-
-        touchesCanceled : function(e) {
-            this.__super(e);
-            this.failed();
         }
 
     };

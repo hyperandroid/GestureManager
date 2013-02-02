@@ -226,6 +226,7 @@
 
         touchesCanceled : function(e) {
             this.__setStatus( GM.GestureRecognizer.STATUS.ST_CANCELED );
+            this.failed();
         },
 
         failed : function() {

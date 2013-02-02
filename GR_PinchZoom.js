@@ -132,11 +132,6 @@
             }
         },
 
-        touchesCanceled : function(e) {
-            this.__super(e);
-            this.failed();
-        },
-
         reset : function() {
             this.__super();
             this.started= false;

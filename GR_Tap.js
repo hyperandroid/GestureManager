@@ -76,11 +76,6 @@
                     this.callback(this.fingers);
                 }
             }
-        },
-
-        touchesCanceled : function(e) {
-            this.__super(e);
-            this.failed();
         }
     };
 

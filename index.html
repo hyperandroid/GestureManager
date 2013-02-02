@@ -10,6 +10,7 @@
     <script src="GR_DoubleTap.js"></script>
     <script src="GR_Swipe.js"></script>
     <script src="GR_PinchZoom.js"></script>
+    <script src="GR_Pinch5.js"></script>
 
     <script>
 
@@ -34,6 +35,9 @@
         function fnPZ(data) {
             $('result').innerText= "Pinch zoom "+JSON.stringify(data);
         }
+        function fnPinch5(progress) {
+            $('result').innerText= "Pinch 5 "+progress;
+        }
 
         gm.addGestureRecognizer(new GM.GR_Tap(2, fnTap) );
         gm.addGestureRecognizer(new GM.GR_Tap(3, fnTap) );
@@ -55,6 +59,8 @@
 
         gm.addGestureRecognizer(new GM.GR_PinchZoom( fnPZ ));
         gm.addGestureRecognizer(new GM.GR_DoubleTap( fnDTap ));
+
+        gm.addGestureRecognizer(new GM.GR_Pinch5( fnPinch5 ));
     </script>
 </head>
 <body>
