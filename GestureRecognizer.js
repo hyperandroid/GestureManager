@@ -114,9 +114,21 @@
             this.currentTouchIdCount=0;
         },
 
-        addTouchInfo : function( id, x, y ) {
-            this.touchesInfo[ this.currentTouchIdCount ].initialize( id, x, y );
+        addTouchInfo : function( ti ) {
+            this.touchesInfo[ this.currentTouchIdCount ].initialize( ti.identifier, ti.pageX, ti.pageY );
             this.currentTouchIdCount += 1;
+        },
+
+        removeTouchInfoById : function(id) {
+            for( var i=0; i<this.touchesInfo.length; i++ ) {
+                if( this.touchesInfo[i].getId()===id ) {
+                    var touch= this.touchesInfo.splice(i,1)[0];
+                    touch.reset();
+                    this.touchesInfo.push(touch);
+                    this.currentTouchIdCount--;
+                    return;
+                }
+            }
         },
 
         getCurrentTouchIdCount : function() {
@@ -205,10 +217,7 @@
             }
 
             for( var i=0; i<e.changedTouches.length; i+=1 ) {
-                this.addTouchInfo(
-                    e.changedTouches[i].identifier,
-                    e.changedTouches[i].pageX,
-                    e.changedTouches[i].pageY );
+                this.addTouchInfo( e.changedTouches[i] );
             }
 
             if ( this.getCurrentTouchIdCount()===this.fingers ) {

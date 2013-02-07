@@ -17,3 +17,7 @@ Gives information of rotation angle, scale, and translation.
 * Double Tap
 
 Recognizes double tap for one touch.
+
+* Pinch 5
+
+Recognizes 5 finger pinch gesture. Like iOS5 multitask close task gesture.
