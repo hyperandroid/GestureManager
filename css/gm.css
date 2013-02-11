@@ -1,5 +1,9 @@
+* {
+    box-sizing: box-model;
+}
+
 body {
-    background-color: #444;
+    background-color: #000;
     margin : 0;
     padding : 0;
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -26,8 +30,8 @@ section {
 
 .row {
     width : 90%;
-    padding-left : 10px;
-    padding-right : 10px;
+    padding-left : 5%;
+    padding-right : 5%;
 
 }
 
@@ -64,19 +68,27 @@ a {
 
 
 #dresult {
+
+
+    border-width: 1px;
+    border-color: #fff;
+    border-style: solid;
+
     -webkit-user-select: none;
     -webkit-user-drag: none;
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    padding-top : 30px;
+    padding-bottom : 30px;
 
-    margin-top : 30px;
+    width : 80%;
+    margin-left: 10%;
+
+    background-color : #f90;
 
 }
 
 #result {
-    width : 100%;
     text-align : center;
-
-    background-color: #950;
-    color : #fa4;
+    color : #fff;
     font-size : 20px;
 }
