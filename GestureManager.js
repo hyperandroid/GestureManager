@@ -10,12 +10,25 @@
 
     GM.GestureManager= function() {
         this.gestureRecognizerList= [];
+        this.touchIds= [];
         return this;
     };
 
     GM.GestureManager.prototype= {
         target : null,
         gestureRecognizerList : null,
+        touchIds : null,
+
+        findIdPos : function(id) {
+
+            for( var i=0; i<this.touchIds.length; i++ ) {
+                if ( this.touchIds[i]===id ) {
+                    return i;
+                }
+            }
+
+            return -1;
+        },
 
         setTarget : function( target ) {
             if ( this.target ) {
@@ -23,6 +36,11 @@
                 this.target.removeEventListener("touchmove");
                 this.target.removeEventListener("touchend");
                 this.target.removeEventListener("touchcancel");
+
+                this.target.removeEventListener("MozTouchDown");
+                this.target.removeEventListener("MozTouchMove");
+                this.target.removeEventListener("MozTouchRelease");
+                this.target.removeEventListener("MozTouchCancel");
             }
 
             this.target= target;
@@ -32,13 +50,27 @@
             target.addEventListener("touchend",    this.__touchEndHandler.bind(this),  false);
             target.addEventListener("touchcancel", this.__touchCancelHandler.bind(this), false);
 
+            target.addEventListener("MozTouchDown",  this.__touchStartHandler.bind(this), false);
+            target.addEventListener("MozTouchMove",   this.__touchMoveHandler.bind(this), false);
+            target.addEventListener("MozTouchRelease",    this.__touchEndHandler.bind(this),  false);
+            target.addEventListener("MozTouchCancel", this.__touchCancelHandler.bind(this), false);
+
             return this;
         },
 
         __touchStartHandler : function(e) {
             e.preventDefault();
 
-            for( var i=0; i<this.gestureRecognizerList.length; i+=1 ) {
+            var i;
+
+            for( i=0; i<e.changedTouches.length; i+=1 ) {
+                var id= e.changedTouches[i].identifier;
+                if ( this.findIdPos(id)===-1 ) {
+                    this.touchIds.push(id);
+                }
+            }
+
+            for( i=0; i<this.gestureRecognizerList.length; i+=1 ) {
                 if ( this.gestureRecognizerList[i].acceptsInput() ) {
                     this.gestureRecognizerList[i].touchesBegan(e);
                 }
@@ -57,9 +89,20 @@
 
         __touchEndHandler : function(e) {
 
+            var i;
+
+            for( i=0; i<e.changedTouches.length; i+=1 ) {
+                var id= e.changedTouches[i].identifier;
+                var pos= this.findIdPos(id);
+                if ( pos!==-1 ) {
+                    this.touchIds.splice(pos,1);
+                }
+            }
+
+
             e.preventDefault();
 
-            for( var i=0; i<this.gestureRecognizerList.length; i+=1 ) {
+            for( i=0; i<this.gestureRecognizerList.length; i+=1 ) {
                 if ( this.gestureRecognizerList[i].acceptsInput() ) {
                     this.gestureRecognizerList[i].touchesEnded(e);
                 }
@@ -70,9 +113,19 @@
 
         __touchCancelHandler : function(e) {
 
+            var i;
+
+            for( i=0; i<e.changedTouches.length; i+=1 ) {
+                var id= e.changedTouches[i].identifier;
+                var pos= this.findIdPos(id);
+                if ( pos!==-1 ) {
+                    this.touchIds.splice(pos,1);
+                }
+            }
+
             e.preventDefault();
 
-            for( var i=0; i<this.gestureRecognizerList.length; i+=1 ) {
+            for( i=0; i<this.gestureRecognizerList.length; i+=1 ) {
                 if ( this.gestureRecognizerList[i].acceptsInput() ) {
                     this.gestureRecognizerList[i].touchesCanceled(e);
                 }
@@ -82,7 +135,7 @@
         },
 
         __shouldReset : function(e) {
-            if (e.touches.length===0) {
+            if (this.touchIds.length===0) {
                 this.__resetGestureRecognizers();
             }
         },
@@ -98,57 +151,5 @@
             }
         }
     };
-
-
-    GM.extend = function (subc, superc) {
-       var subcp = subc.prototype;
-
-       // Class pattern.
-       var f= function () {};
-       f.prototype = superc.prototype;
-
-       subc.prototype = new f();       // chain prototypes.
-       subc.superclass = superc.prototype;
-       subc.prototype.constructor = subc;
-
-       // Reset constructor. See Object Oriented Javascript for an in-depth explanation of this.
-       if (superc.prototype.constructor === Object.prototype.constructor) {
-           superc.prototype.constructor = superc;
-       }
-
-       // los metodos de superc, que no esten en esta clase, crear un metodo que
-       // llama al metodo de superc.
-       for (var method in subcp) {
-           if (subcp.hasOwnProperty(method)) {
-               subc.prototype[method] = subcp[method];
-
-
-               /**
-                * Sintactic sugar to add a __super attribute on every overriden method.
-                * Despite comvenient, it slows things down by 5fps.
-                *
-                * Uncomment at your own risk.
-                */
-               // tenemos en super un metodo con igual nombre.
-               if (superc.prototype[method]) {
-                   subc.prototype[method] = (function (fn, fnsuper) {
-                       return function () {
-                           var prevMethod = this.__super;
-
-                           this.__super = fnsuper;
-
-                           var retValue = fn.apply(
-                               this,
-                               Array.prototype.slice.call(arguments));
-
-                           this.__super = prevMethod;
-
-                           return retValue;
-                       };
-                   })(subc.prototype[method], superc.prototype[method]);
-               }
-           }
-       }
-   };
 
 })();

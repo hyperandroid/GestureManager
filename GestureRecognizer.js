@@ -8,7 +8,7 @@
 (function() {
 
     // generic constants
-    var TIME_TO_HAVE_ALL_FINGERS_IN_GESTURE= 100;
+    var TIME_TO_HAVE_ALL_FINGERS_IN_GESTURE= 150;
     var NO_TOUCH_ID= -1;
 
     function GestureTouchInfo() {
@@ -265,7 +265,7 @@
         },
 
         log : function() {
-//            console.log( Array.prototype.slice.call(arguments) );
+            //console.log( Array.prototype.slice.call(arguments) );
         }
     };
 
