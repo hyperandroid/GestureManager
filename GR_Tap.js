@@ -13,7 +13,7 @@
      *
      * @type {Number}
      */
-    var TIME_TO_TAP_FROM_START_TO_END= 100;
+    var TIME_TO_TAP_FROM_START_TO_END= 150;
     var MOVE_THRESHOLD_TO_CANCEL_GESTURE= 20;
 
     GM.GR_Tap= function(fingers, callback) {

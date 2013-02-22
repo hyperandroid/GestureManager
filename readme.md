@@ -1,12 +1,13 @@
-# GestureManager : A multitouch gesture recognizer#
+# GestureManager : A multitouch gesture recognizer for Webkit based browsers. #
 
-An extensible multitouch gesture recognizer for javascript.
+An extensible multitouch gesture recognizer written in javascript.
 
 #Recognized Gestures#
 
 * Tap
 * LongTap
 * Swipe
+* Double Tap
 
 These gestures are recognized for an unlimited number of touch points.
 
@@ -14,14 +15,14 @@ These gestures are recognized for an unlimited number of touch points.
 
 Gives information of rotation angle, scale, and translation.
 
-* Double Tap
-
-Recognizes double tap for one touch.
-
 * Pinch 5
 
 Recognizes 5 finger pinch gesture. Like iOS5 multitask close task gesture.
 
 # Demo
 
-hyperandroid.github.com/GestureManager
+http://hyperandroid.github.com/GestureManager
+
+# Changelog
+
+v.1.0.0 stable version released.

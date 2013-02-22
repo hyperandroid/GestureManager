@@ -10,8 +10,8 @@
     var DOUBLE_TAP_MAX_TIME= 200;
     var TIME_TO_TAP_FROM_START_TO_END= 100;
 
-    GM.GR_DoubleTap= function(callback) {
-        GM.GR_DoubleTap.superclass.constructor.call(this, 1, callback);
+    GM.GR_DoubleTap= function(fingers, callback) {
+        GM.GR_DoubleTap.superclass.constructor.call(this, fingers, callback);
         this.setId("DoubleTap");
 
         return this;
@@ -46,7 +46,7 @@
                 var t= new Date().getTime();
                 if ( t - this.prevTime < DOUBLE_TAP_MAX_TIME ) {
                     if ( this.callback ) {
-                        this.callback();
+                        this.callback(this.fingers);
                     }
                 }
 
