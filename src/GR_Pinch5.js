@@ -7,7 +7,7 @@
 
 (function() {
 
-    var MIN_CONTOUR_RATIO_TO_PINCH5= .94;
+    var MIN_CONTOUR_RATIO_TO_PINCH5= 0.94;
 
     GM.GR_Pinch5= function(callback) {
         GM.GR_Pinch5.superclass.constructor.call(this, callback);

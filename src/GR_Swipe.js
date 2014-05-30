@@ -100,7 +100,7 @@
             } else if (angle<Math.PI && angle>Math.PI - ANGLE) {
                 return GM.GR_Swipe.DIRECTION.LEFT;
             } else if ( angle>=Math.PI/2-ANGLE && angle<Math.PI/2+ANGLE ) {
-                return yy<0 ? GM.GR_Swipe.DIRECTION.UP : GM.GR_Swipe.DIRECTION.DOWN
+                return yy<0 ? GM.GR_Swipe.DIRECTION.UP : GM.GR_Swipe.DIRECTION.DOWN;
             }
 
             return GM.GR_Swipe.DIRECTION.CANT_TELL;

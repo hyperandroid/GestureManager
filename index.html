@@ -4,15 +4,7 @@
     <title>Gesture Manager</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link rel="stylesheet" href="css/gm.css">
-    <script src="Namespace.js"></script>
-    <script src="GestureManager.js"></script>
-    <script src="GestureRecognizer.js"></script>
-    <script src="GR_Tap.js"></script>
-    <script src="GR_LongTap.js"></script>
-    <script src="GR_DoubleTap.js"></script>
-    <script src="GR_Swipe.js"></script>
-    <script src="GR_PinchZoom.js"></script>
-    <script src="GR_Pinch5.js"></script>
+    <script src="dist/gesturemanager.js"></script>
 
 
 </head>
@@ -90,7 +82,7 @@
         return document.getElementById(e);
     };
 
-    var gm= new GM.GestureManager().setTarget(document);
+    var gm= new GM.GestureManager(document);
 
     function fnTap(fingers) {
         $('result').innerText= "Tap "+fingers;
@@ -111,33 +103,34 @@
         $('result').innerText= "Pinch 5 "+progress;
     }
 
-    gm.addGestureRecognizer(new GM.GR_Tap(2, fnTap) );
-    gm.addGestureRecognizer(new GM.GR_Tap(3, fnTap) );
-    gm.addGestureRecognizer(new GM.GR_Tap(4, fnTap) );
-    gm.addGestureRecognizer(new GM.GR_Tap(5, fnTap) );
-    gm.addGestureRecognizer(new GM.GR_Tap(1, fnTap) );
+    gm.onTap( fnTap );
+    gm.onTap2( fnTap );
+    gm.onTap3( fnTap );
+    gm.onTap4( fnTap );
+    gm.onTap5( fnTap );
 
-    gm.addGestureRecognizer(new GM.GR_LongTap(2, fnLongTap));
-    gm.addGestureRecognizer(new GM.GR_LongTap(3, fnLongTap));
-    gm.addGestureRecognizer(new GM.GR_LongTap(4, fnLongTap));
-    gm.addGestureRecognizer(new GM.GR_LongTap(5, fnLongTap));
-    gm.addGestureRecognizer(new GM.GR_LongTap(1, fnLongTap));
+    gm.onLongTap(fnLongTap);
+    gm.onLongTap2(fnLongTap);
+    gm.onLongTap3(fnLongTap);
+    gm.onLongTap4(fnLongTap);
+    gm.onLongTap5(fnLongTap);
 
-    gm.addGestureRecognizer(new GM.GR_Swipe(1, fnSwipe));
-    gm.addGestureRecognizer(new GM.GR_Swipe(2, fnSwipe));
-    gm.addGestureRecognizer(new GM.GR_Swipe(3, fnSwipe));
-    gm.addGestureRecognizer(new GM.GR_Swipe(4, fnSwipe));
-    gm.addGestureRecognizer(new GM.GR_Swipe(5, fnSwipe));
 
-    gm.addGestureRecognizer(new GM.GR_DoubleTap( 1, fnDTap ));
-    gm.addGestureRecognizer(new GM.GR_DoubleTap( 2, fnDTap ));
-    gm.addGestureRecognizer(new GM.GR_DoubleTap( 3, fnDTap ));
-    gm.addGestureRecognizer(new GM.GR_DoubleTap( 4, fnDTap ));
-    gm.addGestureRecognizer(new GM.GR_DoubleTap( 5, fnDTap ));
+    gm.onSwipe(fnSwipe);
+    gm.onSwipe2(fnSwipe);
+    gm.onSwipe3(fnSwipe);
+    gm.onSwipe4(fnSwipe);
+    gm.onSwipe5(fnSwipe);
 
-    gm.addGestureRecognizer(new GM.GR_PinchZoom( fnPZ ));
+    gm.onDoubleTap( fnDTap );
+    gm.onDoubleTap2( fnDTap );
+    gm.onDoubleTap3( fnDTap );
+    gm.onDoubleTap4( fnDTap );
+    gm.onDoubleTap5( fnDTap );
 
-    gm.addGestureRecognizer(new GM.GR_Pinch5( fnPinch5 ));
+    gm.onPinchZoom( fnPZ );
+
+    gm.onPinch5( fnPinch5 );
 </script>
 </body>
 </html>

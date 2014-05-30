@@ -10,6 +10,45 @@
     var DISTANCE_THRESHOLD_TO_BE_PINCHZOOM= 20;
     var TIME_TO_START_PINCH_ZOOM= 700;
 
+    /**
+     * @class
+     *
+     * @name PinchZoomInfo
+     * @memberOf GM
+     *
+     * Info for pinch and zoom gesture.
+     *
+     * @constructor
+     */
+    GM.PinchZoomInfo = function( scale, rotation, x, y) {
+
+        /**
+         * @memberOf GM.PinchZoomInfo.prototype
+         * @name scale
+         * @type {number}
+         */
+        this.scale = scale;
+
+        /**
+         * @memberOf GM.PinchZoomInfo.prototype
+         * @name rotation
+         * @type {number}
+         */
+        this.rotation= rotation;
+
+        /**
+         * @memberOf GM.PinchZoomInfo.prototype
+         * @name translate
+         * @type { {x:number, y:number} }
+         */
+        this.translate= {
+            x : x,
+            y : y
+        };
+
+        return this;
+    };
+
     GM.GR_PinchZoom= function(callback) {
         GM.GR_PinchZoom.superclass.constructor.call(this, callback);
         this.setCaptureTouchIdLen(2);
@@ -102,8 +141,8 @@
 
             var sc= this.__scale + ( gs/this.__gestureScale ) - 1;
 
-            if ( sc<.2 ) {
-                this.__scale= .2;
+            if ( sc<0.2 ) {
+                this.__scale= 0.2;
             } else {
                 this.__scale = sc;
                 this.__gestureScale= gs;
@@ -113,14 +152,7 @@
             var ty = e0.endY - e0.y;
 
             if ( this.callback ) {
-                this.callback( {
-                    scale : this.__scale,
-                    rotation : this.__rotation*180/Math.PI,
-                    translate : {
-                        x : tx,
-                        y : ty
-                    }
-                });
+                this.callback( new GM.PinchZoomInfo( this.__scale, this.__rotation*180/Math.PI, tx, ty ) );
             }
         },
 

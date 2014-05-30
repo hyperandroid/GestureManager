@@ -7,6 +7,28 @@
 
 (function() {
 
+    /**
+     * @callback tapCallback
+     * @param fingers {number} numbers of touch points when the gesture was recognized.
+     */
+
+    /**
+     * @callback swipeCallback
+     * @param fingers {number} numbers of touch points when the gesture was recognized.
+     * @param direction {top|left|bottom|right} swipe direction
+     */
+
+    /**
+     * @callback pinch5Callback
+     * @param percentage {number} the relative percentage the gesture is at. 100 is the value at gesture recognition,
+     *  and will be smaller as the touch points get closer.
+     */
+
+    /**
+     * @callback pinchZoomCallback
+     * @param data {GM.PinchZoomInfo} Values from pinch and zoom.
+     */
+
     // generic constants
     var TIME_TO_HAVE_ALL_FINGERS_IN_GESTURE= 150;
     var NO_TOUCH_ID= -1;
@@ -190,12 +212,7 @@
         getGestureElapsedTime : function() {
             return new Date().getTime() - this.startTime;
         },
-/*
-        touchesBegan : function(e) {
-            this.__setStatus( GM.GestureRecognizer.STATUS.ST_BEGAN );
-            this.startTime= new Date().getTime();
-        },
-*/
+
         touchesBegan : function(e) {
 
             if ( this.startTime===-1 ) {
