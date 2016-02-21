@@ -1,8 +1,19 @@
 {
   "name": "gesture_recognizer",
   "version": "1.1.0",
-  "author":"Ibon Tolosana",
+  "keywords": [
+    "gesture", "multi-touch", "multitouch"
+  ],
+  "author":"Ibon Tolosana <hyperandroid@gmail.com>",
   "main" : "build/GestureRecognizer.js",
   "description" : "An advanced and extensible multi-touch gesture recognizer",
-  "dependencies": {}
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/hyperandroid/GestureManager.git"
+  },
+  "dependencies": {},
+  "devDependencies": {},
+  "optionalDependencies": {},
+  "license": "MIT",
+  "homepage": "http://github.com/hyperandroid/AsyncHelper"
 }
