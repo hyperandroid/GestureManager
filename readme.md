@@ -62,11 +62,11 @@ source code for each gesture type are:
 
 ** GR_TAP must exist if `GR_LongTap` or `GR_DoubleTap` are needed.
 
-# Demo
+## Demo
 
-http://hyperandroid.github.com/GestureManager
+hyperandroid.github.io/GestureManager/index.html
 
-# Changelog
+## Changelog
 
 v.1.1.0 Typescript rewrite. Added package details.
 v.1.0.0 stable version released.
