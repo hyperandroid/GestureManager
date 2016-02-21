@@ -4,17 +4,6 @@
     <title>Gesture Manager</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link rel="stylesheet" href="css/gm.css">
-    <script src="Namespace.js"></script>
-    <script src="GestureManager.js"></script>
-    <script src="GestureRecognizer.js"></script>
-    <script src="GR_Tap.js"></script>
-    <script src="GR_LongTap.js"></script>
-    <script src="GR_DoubleTap.js"></script>
-    <script src="GR_Swipe.js"></script>
-    <script src="GR_PinchZoom.js"></script>
-    <script src="GR_Pinch5.js"></script>
-
-
 </head>
 <body>
 
@@ -84,60 +73,67 @@
     <span>Gesture icons courtesy of <a href="http://MobileTuxedo.com">MobileTuxedo.com</a></span>
 </section>
 
+
+<script>
+    // hacking browserify
+    window.exports = {};
+</script>
+<script src="../build/gesturemanager.js"></script>
 <script>
 
     var $= function(e) {
         return document.getElementById(e);
     };
 
-    var gm= new GM.GestureManager().setTarget(document);
+    var gm= new exports.GestureManager(document);
 
     function fnTap(fingers) {
-        $('result').innerText= "Tap "+fingers;
+        $('result').textContent= "Tap "+fingers;
     }
     function fnDTap(fingers) {
-        $('result').innerText= "DoubleTap "+fingers;
+        $('result').textContent= "DoubleTap "+fingers;
     }
     function fnLongTap(fingers) {
-        $('result').innerText= "LongTap "+fingers;
+        $('result').textContent= "LongTap "+fingers;
     }
     function fnSwipe(fingers, direction) {
-        $('result').innerText= "Swipe "+fingers+" "+direction;
+        $('result').textContent= "Swipe "+fingers+" "+direction;
     }
     function fnPZ(data) {
-        $('result').innerText= "Pinch zoom "+JSON.stringify(data);
+        $('result').textContent= "Pinch zoom "+JSON.stringify(data);
     }
     function fnPinch5(progress) {
-        $('result').innerText= "Pinch 5 "+progress;
+        $('result').textContent= "Pinch 5 "+progress;
     }
 
-    gm.addGestureRecognizer(new GM.GR_Tap(2, fnTap) );
-    gm.addGestureRecognizer(new GM.GR_Tap(3, fnTap) );
-    gm.addGestureRecognizer(new GM.GR_Tap(4, fnTap) );
-    gm.addGestureRecognizer(new GM.GR_Tap(5, fnTap) );
-    gm.addGestureRecognizer(new GM.GR_Tap(1, fnTap) );
+    gm.on( "tap", fnTap, 1 );
+    gm.on( "tap", fnTap, 2 );
+    gm.on( "tap", fnTap, 3 );
+    gm.on( "tap", fnTap, 4 );
+    gm.on( "tap", fnTap, 5 );
 
-    gm.addGestureRecognizer(new GM.GR_LongTap(2, fnLongTap));
-    gm.addGestureRecognizer(new GM.GR_LongTap(3, fnLongTap));
-    gm.addGestureRecognizer(new GM.GR_LongTap(4, fnLongTap));
-    gm.addGestureRecognizer(new GM.GR_LongTap(5, fnLongTap));
-    gm.addGestureRecognizer(new GM.GR_LongTap(1, fnLongTap));
+    gm.on( "longtap", fnLongTap, 1);
+    gm.on( "longtap", fnLongTap, 2);
+    gm.on( "longtap", fnLongTap, 3);
+    gm.on( "longtap", fnLongTap, 4);
+    gm.on( "longtap", fnLongTap, 5);
 
-    gm.addGestureRecognizer(new GM.GR_Swipe(1, fnSwipe));
-    gm.addGestureRecognizer(new GM.GR_Swipe(2, fnSwipe));
-    gm.addGestureRecognizer(new GM.GR_Swipe(3, fnSwipe));
-    gm.addGestureRecognizer(new GM.GR_Swipe(4, fnSwipe));
-    gm.addGestureRecognizer(new GM.GR_Swipe(5, fnSwipe));
+    gm.on( "swipe", fnSwipe, 1);
+    gm.on( "swipe", fnSwipe, 2);
+    gm.on( "swipe", fnSwipe, 3);
+    gm.on( "swipe", fnSwipe, 4);
+    gm.on( "swipe", fnSwipe, 5);
 
-    gm.addGestureRecognizer(new GM.GR_DoubleTap( 1, fnDTap ));
-    gm.addGestureRecognizer(new GM.GR_DoubleTap( 2, fnDTap ));
-    gm.addGestureRecognizer(new GM.GR_DoubleTap( 3, fnDTap ));
-    gm.addGestureRecognizer(new GM.GR_DoubleTap( 4, fnDTap ));
-    gm.addGestureRecognizer(new GM.GR_DoubleTap( 5, fnDTap ));
+    gm.on( "doubletap", fnDTap, 1);
+    gm.on( "doubletap", fnDTap, 2);
+    gm.on( "doubletap", fnDTap, 3);
+    gm.on( "doubletap", fnDTap, 4);
+    gm.on( "doubletap", fnDTap, 5);
 
-    gm.addGestureRecognizer(new GM.GR_PinchZoom( fnPZ ));
+    gm.on( "pinchzoom", fnPZ );
 
-    gm.addGestureRecognizer(new GM.GR_Pinch5( fnPinch5 ));
+    gm.on( "pinch5", fnPinch5 );
+
 </script>
 </body>
 </html>
