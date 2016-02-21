@@ -4,16 +4,8 @@
     <title>Gesture Manager</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link rel="stylesheet" href="css/gm.css">
-    <script src="dist/gesturemanager.js"></script>
-
-
 </head>
 <body>
-
-<div class="position:fixed; left:10px;">
-    <a href="https://twitter.com/share" class="twitter-share-button" data-url="http://hyperandroid.github.com/GestureManager/" data-text="GestureManager" data-via="hyperandroid">Tweet</a>
-    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
-</div>
 
 <section>
     <h1>
@@ -72,65 +64,75 @@
 
 </section>
 
+<section style="position:fixed; bottom:0; width:100%">
+    <h1><a href="https://github.com/hyperandroid/GestureManager">Fork me on github </a></h1>
+</section>
+
 <section>
     <span>Gesture icons courtesy of <a href="http://MobileTuxedo.com">MobileTuxedo.com</a></span>
 </section>
 
+
+<script>
+    // hacking browserify
+    window.exports = {};
+</script>
+<script src="build/gesturemanager.js"></script>
 <script>
 
     var $= function(e) {
         return document.getElementById(e);
     };
 
-    var gm= new GM.GestureManager(document);
+    var gm= new exports.GestureManager(document);
 
     function fnTap(fingers) {
-        $('result').innerText= "Tap "+fingers;
+        $('result').textContent= "Tap "+fingers;
     }
     function fnDTap(fingers) {
-        $('result').innerText= "DoubleTap "+fingers;
+        $('result').textContent= "DoubleTap "+fingers;
     }
     function fnLongTap(fingers) {
-        $('result').innerText= "LongTap "+fingers;
+        $('result').textContent= "LongTap "+fingers;
     }
     function fnSwipe(fingers, direction) {
-        $('result').innerText= "Swipe "+fingers+" "+direction;
+        $('result').textContent= "Swipe "+fingers+" "+direction;
     }
     function fnPZ(data) {
-        $('result').innerText= "Pinch zoom "+JSON.stringify(data);
+        $('result').textContent= "Pinch zoom "+JSON.stringify(data);
     }
     function fnPinch5(progress) {
-        $('result').innerText= "Pinch 5 "+progress;
+        $('result').textContent= "Pinch 5 "+progress;
     }
 
-    gm.onTap( fnTap );
-    gm.onTap2( fnTap );
-    gm.onTap3( fnTap );
-    gm.onTap4( fnTap );
-    gm.onTap5( fnTap );
+    gm.on( "tap", fnTap, 1 );
+    gm.on( "tap", fnTap, 2 );
+    gm.on( "tap", fnTap, 3 );
+    gm.on( "tap", fnTap, 4 );
+    gm.on( "tap", fnTap, 5 );
 
-    gm.onLongTap(fnLongTap);
-    gm.onLongTap2(fnLongTap);
-    gm.onLongTap3(fnLongTap);
-    gm.onLongTap4(fnLongTap);
-    gm.onLongTap5(fnLongTap);
+    gm.on( "longtap", fnLongTap, 1);
+    gm.on( "longtap", fnLongTap, 2);
+    gm.on( "longtap", fnLongTap, 3);
+    gm.on( "longtap", fnLongTap, 4);
+    gm.on( "longtap", fnLongTap, 5);
 
+    gm.on( "swipe", fnSwipe, 1);
+    gm.on( "swipe", fnSwipe, 2);
+    gm.on( "swipe", fnSwipe, 3);
+    gm.on( "swipe", fnSwipe, 4);
+    gm.on( "swipe", fnSwipe, 5);
 
-    gm.onSwipe(fnSwipe);
-    gm.onSwipe2(fnSwipe);
-    gm.onSwipe3(fnSwipe);
-    gm.onSwipe4(fnSwipe);
-    gm.onSwipe5(fnSwipe);
+    gm.on( "doubletap", fnDTap, 1);
+    gm.on( "doubletap", fnDTap, 2);
+    gm.on( "doubletap", fnDTap, 3);
+    gm.on( "doubletap", fnDTap, 4);
+    gm.on( "doubletap", fnDTap, 5);
 
-    gm.onDoubleTap( fnDTap );
-    gm.onDoubleTap2( fnDTap );
-    gm.onDoubleTap3( fnDTap );
-    gm.onDoubleTap4( fnDTap );
-    gm.onDoubleTap5( fnDTap );
+    gm.on( "pinchzoom", fnPZ );
 
-    gm.onPinchZoom( fnPZ );
+    gm.on( "pinch5", fnPinch5 );
 
-    gm.onPinch5( fnPinch5 );
 </script>
 </body>
 </html>
