@@ -64,7 +64,9 @@ source code for each gesture type are:
 
 ## Demo
 
-hyperandroid.github.io/GestureManager/index.html
+[Gesture Manager demo](https://hyperandroid.github.io/GestureManager/index.html)
+
+Make sure you open it from a touch enabled browser.
 
 ## Changelog
 
