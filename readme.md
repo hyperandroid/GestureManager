@@ -1,3 +1,7 @@
+## Try it [horrible layout and css, but works]
+
+[Gesture Manager demo](https://hyperandroid.github.io/GestureManager/index.html)
+
 # GestureManager : An advanced and extensible multi-touch gesture recognizer. #
 
 Gesture Manager offers out-of-the-box multi touch gesture recognition for `tap`, `long tap`, `double tap`, 
@@ -61,10 +65,6 @@ source code for each gesture type are:
 * GR_Pinch5
 
 ** GR_TAP must exist if `GR_LongTap` or `GR_DoubleTap` are needed.
-
-## Demo
-
-[Gesture Manager demo](https://hyperandroid.github.io/GestureManager/index.html)
 
 Make sure you open it from a touch enabled browser.
 
